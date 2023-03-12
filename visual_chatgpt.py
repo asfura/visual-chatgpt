@@ -804,9 +804,9 @@ class ConversationBot:
         self.llm = OpenAI(temperature=0)
         self.edit = ImageEditing(device="cuda:0")
         self.i2t = ImageCaptioning(device="cuda:0")
-        self.t2i = T2I(device="cuda:0")
-        self.image2canny = image2canny()
-        #self.canny2image = canny2image(device="cuda:0")
+        #self.t2i = T2I(device="cuda:0")
+        # self.image2canny = image2canny()
+        # self.canny2image = canny2image(device="cuda:0")
         # self.image2line = image2line()
         # self.line2image = line2image(device="cuda:1")
         # self.image2hed = image2hed()
@@ -815,7 +815,7 @@ class ConversationBot:
         # self.scribble2image = scribble2image(device="cuda:3")
         # self.image2pose = image2pose()
         # self.pose2image = pose2image(device="cuda:3")
-        self.BLIPVQA = BLIPVQA(device="cuda:0")
+        # self.BLIPVQA = BLIPVQA(device="cuda:0")
         # self.image2seg = image2seg()
         # self.seg2image = seg2image(device="cuda:7")
         # self.image2depth = image2depth()
@@ -828,9 +828,9 @@ class ConversationBot:
             Tool(name="Get Photo Description", func=self.i2t.inference,
                  description="useful when you want to know what is inside the photo. receives image_path as input. "
                              "The input to this tool should be a string, representing the image_path. "),
-            Tool(name="Generate Image From User Input Text", func=self.t2i.inference,
-                 description="useful when you want to generate an image from a user input text and save it to a file. like: generate an image of an object or something, or generate an image that includes some objects. "
-                             "The input to this tool should be a string, representing the text used to generate image. "),
+          #  Tool(name="Generate Image From User Input Text", func=self.t2i.inference,
+          #       description="useful when you want to generate an image from a user input text and save it to a file. like: generate an image of an object or something, or generate an image that includes some objects. "
+          #                   "The input to this tool should be a string, representing the text used to generate image. "),
             Tool(name="Remove Something From The Photo", func=self.edit.remove_part_of_image,
                   description="useful when you want to remove and object or something from the photo from its description or location. "
                               "The input to this tool should be a comma seperated string of two, representing the image_path and the object need to be removed. "),
@@ -841,12 +841,12 @@ class ConversationBot:
             Tool(name="Instruct Image Using Text", func=self.pix2pix.inference,
                   description="useful when you want to the style of the image to be like the text. like: make it look like a painting. or make it like a robot. "
                               "The input to this tool should be a comma seperated string of two, representing the image_path and the text. "),
-            Tool(name="Answer Question About The Image", func=self.BLIPVQA.get_answer_from_question_and_image,
-                 description="useful when you need an answer for a question based on an image. like: what is the background color of the last image, how many cats in this figure, what is in this figure. "
-                             "The input to this tool should be a comma seperated string of two, representing the image_path and the question"),
-            Tool(name="Edge Detection On Image", func=self.image2canny.inference,
-                 description="useful when you want to detect the edge of the image. like: detect the edges of this image, or canny detection on image, or peform edge detection on this image, or detect the canny image of this image. "
-                             "The input to this tool should be a string, representing the image_path"),
+            #Tool(name="Answer Question About The Image", func=self.BLIPVQA.get_answer_from_question_and_image,
+            #     description="useful when you need an answer for a question based on an image. like: what is the background color of the last image, how many cats in this figure, what is in this figure. "
+            #                 "The input to this tool should be a comma seperated string of two, representing the image_path and the question"),
+            #Tool(name="Edge Detection On Image", func=self.image2canny.inference,
+            #     description="useful when you want to detect the edge of the image. like: detect the edges of this image, or canny detection on image, or peform edge detection on this image, or detect the canny image of this image. "
+            #                 "The input to this tool should be a string, representing the image_path"),
             # Tool(name="Generate Image Condition On Canny Image", func=self.canny2image.inference,
             #      description="useful when you want to generate a new real image from both the user desciption and a canny image. like: generate a real image of a object or something from this canny image, or generate a new real image of a object or something from this edge image. "
             #                  "The input to this tool should be a comma seperated string of two, representing the image_path and the user description. "),
